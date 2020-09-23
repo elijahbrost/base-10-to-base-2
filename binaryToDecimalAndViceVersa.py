@@ -1,33 +1,33 @@
 def convertDecimalToBinaricString(decimalToConvert):
-    a = decimalToConvert
-    b = []
-    c = 0
-    d = 1
-    e = 0
-    f = []
-    g = ""
-    while a > 0:
-        while a >= d:
-            if a <= 3:
-                c = a
-                d = d * 4
+    decimalToConvert = decimalToConvert
+    arrayOfStringularBinaries = []
+    greatestRoundComponent = 1
+    lengthOfBinary = 1
+    while greatestRoundComponent*2 < decimalToConvert:
+        lengthOfBinary = lengthOfBinary+1
+        greatestRoundComponent = greatestRoundComponent*2
+    if greatestRoundComponent*2 == decimalToConvert:
+        greatestRoundComponent = decimalToConvert
+        lengthOfBinary = lengthOfBinary+1
+    while lengthOfBinary > 0:
+        arrayOfStringularBinaries.append("0")
+        lengthOfBinary = lengthOfBinary-1
+    arrayOfStringularBinaries[0] = "1"
+    decimalToConvert = decimalToConvert - greatestRoundComponent
+    position = 0
+    while decimalToConvert > 0:
+        if decimalToConvert < greatestRoundComponent:
+            greatestRoundComponent = greatestRoundComponent/2
+            if greatestRoundComponent > decimalToConvert:
+                position = position+1
             else:
-                c = c + 1
-                d = d * 2
-        if a != d:
-            a = int(a - (d/2))
-        b.append(c)
-        c = 0
-        d = 1
-    while e < b[0]:
-        f.append(0)
-        e = e + 1
-    for i in b:
-        f[i-1] = 1
-    f.reverse()
-    for i in f:
-        g = g + str(i)
-    return g
+                position = position+1
+                arrayOfStringularBinaries[position] = "1"
+                decimalToConvert = decimalToConvert - greatestRoundComponent
+    stringularBinary = ""
+    for i in arrayOfStringularBinaries:
+        stringularBinary = stringularBinary + str(i)
+    return stringularBinary
 
 def convertArrayOfDecimalsToArrayOfBinaricStrings(arrayToConvert):
     arrayOfStringularBinaries = []
@@ -52,7 +52,7 @@ def convertArrayOfBinaricStringsToArrayOfDecimals(arrayToConvert):
         arrayOfDecimals.append(convertBinaricStringToDecimal(i))
     return arrayOfDecimals
 
-print(convertDecimalToBinaricString(6666))
-print(convertArrayOfDecimalsToArrayOfBinaricStrings([6, 66, 666]))
+print(convertDecimalToBinaricString(5))
+print(convertArrayOfDecimalsToArrayOfBinaricStrings([3, 5, 7, 11, 13, 17]))
 print(convertBinaricStringToDecimal("11111"))
 print(convertArrayOfBinaricStringsToArrayOfDecimals(["1", "11", "111", "1111"]))
